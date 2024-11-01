@@ -1,30 +1,36 @@
 
 import pandas as pd
 import os
+folder_path = 'C:\\Users\\felle\\OneDrive\\Рабочий стол\\ml_sammm'
 
-# Укажите путь к папке с CSV-файлами
-folder_path = r"C:\\Users\\felle\\OneDrive\\Рабочий стол\\ml_samm"
-
-# Получаем список всех CSV-файлов в папке
 csv_files = [f for f in os.listdir(folder_path) if f.endswith('.csv')]
+csv_files
 
-# Список для хранения DataFrame
+
+len(csv_files)
+
 df_list = []
-
-# Читаем каждый CSV-файл и добавляем его в список
 for file in csv_files:
-    file_path = os.path.join(folder_path, file)
     try:
-        df = pd.read_csv(file_path, sep=',', encoding='utf-16')  # Укажите нужную кодировку
+        file_path = os.path.join(folder_path, file)
+        df = pd.read_csv(file_path, sep=';')
+        print(df.head())
         df_list.append(df)
-    except Exception as e:
-        print(f"Ошибка при чтении файла {file_path}: {e}")
+    except:
+        print(file_path)
 
-# Объединяем все DataFrame в один
-df_all = pd.concat(df_list, ignore_index=True)
+len(df_list)
 
-# Сохраняем объединенный DataFrame в новый CSV-файл
-output_file_path = os.path.join(folder_path, 'merged_data.csv')
-df_all.to_csv(output_file_path, index=False)
+df_list.append(pd.read_csv('C:\\Users\\felle\\OneDrive\\Рабочий стол\\новая'))
 
-print(f"Все данные успешно собраны в файл: {output_file_path}")
+
+for df_ in df_list:
+    df_all = pd.concat(df_list, ignore_index=True )
+df_all    
+
+df_all.drop_duplicates(inplace=True, ignore_index=True)
+df_all.shape
+
+df_all['location'].value_counts()
+df_all = df_all.drop_duplicates()
+df_all.to_csv('C:\\Users\\felle\\OneDrive\\Рабочий стол\\ml_sammm\\started.py', index=False)
